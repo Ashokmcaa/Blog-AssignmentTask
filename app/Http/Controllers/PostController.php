@@ -18,9 +18,6 @@ class PostController extends Controller
 {
     use AuthorizesRequests;
 
-
-
-
     public function index(Request $request)
     {
         try {
@@ -376,9 +373,8 @@ class PostController extends Controller
             } elseif ($request->status === 'draft') {
                 $query->where('published', false);
             }
-            // 'all' shows both published and draft
         } else {
-            // Default: only show published posts to non-admins
+
             $user = Auth::user();
             if (!$user || !method_exists($user, 'isAdmin') || !$user->isAdmin()) {
                 $query->where('published', true);

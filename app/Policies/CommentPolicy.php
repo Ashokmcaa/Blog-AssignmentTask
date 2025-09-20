@@ -13,24 +13,24 @@ class CommentPolicy
 
     public function viewAny(User $user): bool
     {
-        return true; // Anyone can view comments
+        return true;
     }
 
 
     public function view(User $user, Comment $comment): bool
     {
-        return true; // Anyone can view a comment
+        return true;
     }
 
 
     public function create(User $user): bool
     {
-        return true; // Any authenticated user can create comments
+        return true;
     }
 
     public function update(User $user, Comment $comment): bool
     {
-        // Only comment owner can update
+
         return $user->id === $comment->user_id;
     }
 
@@ -43,17 +43,13 @@ class CommentPolicy
             $user->id === $comment->post->user_id;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
+
     public function restore(User $user, Comment $comment): bool
     {
         return $user->isAdmin();
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
+
     public function forceDelete(User $user, Comment $comment): bool
     {
         return $user->isAdmin();

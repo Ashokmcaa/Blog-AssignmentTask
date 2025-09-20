@@ -38,27 +38,7 @@ class Post extends Model
         return $query->where('published', true);
     }
 
-    // public function scopeWithFilters($query, $filters)
-    // {
-    //     return $query->when(isset($filters['tag']), function ($query) use ($filters) {
-    //         $query->whereHas('tags', function ($query) use ($filters) {
-    //             $query->where('slug', $filters['tag']);
-    //         });
-    //     })
-    //         ->when(isset($filters['author']), function ($query) use ($filters) {
-    //             $query->whereHas('user', function ($query) use ($filters) {
-    //                 $query->where('id', $filters['author']);
-    //             });
-    //         })
-    //         ->when(isset($filters['search']), function ($query) use ($filters) {
-    //             $query->where(function ($query) use ($filters) {
-    //                 $query->where('title', 'like', '%' . $filters['search'] . '%')
-    //                     ->orWhere('content', 'like', '%' . $filters['search'] . '%');
-    //             });
-    //         });
-    // }
 
-    // app/Models/Post.php
     public function scopeWithFilters($query, $filters)
     {
         return $query->when(isset($filters['tag']), function ($query) use ($filters) {

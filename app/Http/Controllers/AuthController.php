@@ -12,12 +12,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    /**
-     * Register a new user
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function register(Request $request)
     {
         try {
@@ -158,21 +153,14 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Refresh token (optional)
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function refresh(Request $request)
     {
         try {
             $user = $request->user();
 
-            // Revoke current token
-            $request->user()->currentAccessToken()->delete();
 
-            // Create new token
+            $request->user()->currentAccessToken()->delete();
             $token = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([

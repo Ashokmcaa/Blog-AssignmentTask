@@ -15,9 +15,9 @@ class Tag extends Model
     protected $fillable = [
         'name',
         'slug',
-        'description', // Optional field
-        'color',       // Optional field for UI
-        'is_active'    // Optional field for soft deletion alternative
+        'description',
+        'color',
+        'is_active'
     ];
 
 
@@ -139,17 +139,13 @@ class Tag extends Model
         }
     }
 
-    /**
-     * Mutator: Ensure slug is always lowercase.
-     */
+
     public function setSlugAttribute($value): void
     {
         $this->attributes['slug'] = Str::lower(Str::slug($value));
     }
 
-    /**
-     * Check if tag has posts.
-     */
+
     public function hasPosts(): bool
     {
         return $this->posts()->exists();
@@ -251,9 +247,7 @@ class Tag extends Model
         ]);
     }
 
-    /**
-     * Override the default route key for implicit binding.
-     */
+
     public function getRouteKeyName(): string
     {
         return 'slug';
