@@ -11,11 +11,7 @@ class Tag extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
         'name',
         'slug',
@@ -24,20 +20,14 @@ class Tag extends Model
         'is_active'    // Optional field for soft deletion alternative
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+
     protected $casts = [
         'is_active' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
     ];
 
-    /**
-     * Boot function for automatic slug generation.
-     */
+
     protected static function boot()
     {
         parent::boot();
@@ -55,9 +45,7 @@ class Tag extends Model
         });
     }
 
-    /**
-     * Many-to-Many Relationship with Posts.
-     */
+
     public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class)
@@ -67,9 +55,7 @@ class Tag extends Model
             ->orderBy('posts.created_at', 'desc');
     }
 
-    /**
-     * Relationship with all posts (including unpublished).
-     */
+
     public function allPosts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class)
@@ -77,17 +63,12 @@ class Tag extends Model
             ->withPivot(['created_at', 'updated_at']);
     }
 
-    /**
-     * Scope: Only active tags.
-     */
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
 
-    /**
-     * Scope: Popular tags (with most posts).
-     */
+
     public function scopePopular($query, $limit = 10)
     {
         return $query->withCount('posts')
@@ -95,9 +76,7 @@ class Tag extends Model
             ->limit($limit);
     }
 
-    /**
-     * Scope: Search tags by name or slug.
-     */
+
     public function scopeSearch($query, $searchTerm)
     {
         return $query->where('name', 'like', "%{$searchTerm}%")
