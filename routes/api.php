@@ -17,13 +17,9 @@ Route::post('/login', [AuthController::class, 'login']);
 // Public routes
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{id}', [PostController::class, 'show']);
-
-
 Route::get('/tags', [TagController::class, 'index']);
 Route::get('/tags/{id}/posts', [TagController::class, 'getPosts']);
-
 Route::get('/posts/slug/{slug}', [PostController::class, 'showBySlug']);
-
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
     // Auth
@@ -42,19 +38,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Comments
     Route::get('/posts/{post_id}/comments', [CommentController::class, 'index']);
-    // Route::post('/posts/{post_id}/comments', [CommentController::class, 'store']);
-    // Route::post('/comments', [CommentController::class, 'store']);
-
-
-
-
 
     Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('/posts/{post_id}/comments', [CommentController::class, 'store']);
     });
 
-    // Route::post('/posts/{post_id}/comments', [CommentController::class, 'store'])->middleware('auth:sanctum');
 
     Route::put('/comments/{id}', [CommentController::class, 'update']);
     Route::delete('/comments/{id}', [CommentController::class, 'destroy']);

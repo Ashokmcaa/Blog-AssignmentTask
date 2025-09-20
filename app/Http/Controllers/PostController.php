@@ -343,59 +343,10 @@ class PostController extends Controller
     }
 
 
-    /////apply filter
-
-
-    //     // Filter by tag (slug or ID)
-    //     if ($request->has('tag')) {
-    //         $query->whereHas('tags', function ($q) use ($request) {
-    //             $q->where('slug', $request->tag)
-    //                 ->orWhere('id', $request->tag);
-    //         });
-    //     }
-
-    //     // Filter by author
-    //     if ($request->has('author')) {
-    //         $query->where('user_id', $request->author);
-    //     }
-
-    //     // Search in title and content
-    //     if ($request->has('search')) {
-    //         $searchTerm = '%' . $request->search . '%';
-    //         $query->where(function ($q) use ($searchTerm) {
-    //             $q->where('title', 'like', $searchTerm)
-    //                 ->orWhere('content', 'like', $searchTerm);
-    //         });
-    //     }
-
-    //     // Filter by status
-    //     if ($request->has('status')) {
-    //         if ($request->status === 'published') {
-    //             $query->where('published', true);
-    //         } elseif ($request->status === 'draft') {
-    //             $query->where('published', false);
-    //         }
-    //         // 'all' shows both published and draft
-    //     } else {
-    //         // Default: only show published posts to non-admins
-    //         $user = Auth::user(); // Use Auth facade
-    //         if (!$user || !$user->isAdmin()) {
-    //             $query->where('published', true);
-    //         }
-    //     }
-
-    //     return $query;
-
 
     private function applyFilters($query, Request $request)
     {
         // Filter by tag (slug or ID)
-        // if ($request->has('tag')) {
-        //     $query->whereHas('tags', function ($q) use ($request) {
-        //         $q->where('slug', $request->tag)
-        //             ->orWhere('id', $request->tag);
-        //     });
-        // }
 
         if ($request->has('tag')) {
             $query->whereHas('tags', function ($q) use ($request) {
